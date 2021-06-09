@@ -13,8 +13,7 @@ const ContactSchema = mongoose.Schema({
     emailId: { type: String, required: true, validate: /^[a-zA-Z0-9+_.-]+@[a-zA-Z0-9]+[.]+[a-zA-Z]+$/ },
 }, {
     timestamps: false,
-    versionKey: false,
-    ObjectId: false
+    versionKey: false
 });
 
 const Contact = mongoose.model('Contact', ContactSchema)
