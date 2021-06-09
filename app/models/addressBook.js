@@ -6,15 +6,15 @@ const mongoose = require('mongoose');
 const ContactSchema = mongoose.Schema({
     firstName: { type: String, required: true, validate: /^[a-zA-Z ]{3,30}$/ },
     lastName: { type: String, required: true, validate: /^[a-zA-Z ]{1,30}$/ },
-    phoneNumber: { type: String, required: true, unique:true, validate: /^[0-9]{10}$/ },
+    phoneNumber: { type: Number, integer: true, required: true, unique: true, validate: {validator:/^[0-9]{10}$/, message:"Mobile Number must be valid 10 digit number"} },
     city: { type: String, required: true, validate: /^[a-zA-Z ]{3,30}$/ },
     state: { type: String, required: true, validate: /^[a-zA-Z ]{3,30}$/ },
-    pincode: { type: String, required: true,validate: /^[0-9]{6}$/},
+    pincode: { type: Number, required: true, validate: /^[0-9]{6}$/ },
     emailId: { type: String, required: true, validate: /^[a-zA-Z0-9+_.-]+@[a-zA-Z0-9]+[.]+[a-zA-Z]+$/ },
 }, {
     timestamps: false,
     versionKey: false,
-    ObjectId:false
+    ObjectId: false
 });
 
 const Contact = mongoose.model('Contact', ContactSchema)
@@ -41,4 +41,4 @@ class ContactModel {
         });
     }
 }
-module.exports =new ContactModel();
+module.exports = new ContactModel();
