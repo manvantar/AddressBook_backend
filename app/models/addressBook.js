@@ -17,27 +17,3 @@ const ContactSchema = mongoose.Schema({
 });
 
 const Contact = mongoose.model('Contact', ContactSchema)
-
-class ContactModel {
-
-    /**
-    * @description Create method is to save the new contact 
-    * @param newData is data sent from Services
-    * @return callback is used to callback Services includes error message or data
-    */
-    create = (newData, callback) => {
-        const contact = new Contact({
-            firstName: newData.firstName,
-            lastName: newData.lastName,
-            phoneNumber: newData.phoneNumber,
-            city: newData.city,
-            state: newData.state,
-            pincode: newData.pincode,
-            emailId: newData.emailId
-        });
-        contact.save({}, (error, data) => {
-            return (error) ? callback(error, null) : callback(null, data);
-        });
-    }
-}
-module.exports =new ContactModel();
