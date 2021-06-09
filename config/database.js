@@ -7,7 +7,7 @@ const mongoose = require('mongoose');
 function dbconnect(){
 
     mongoose.promise;
-    mongoose.connect(process.env.DATABASE_URL, {
+    mongoose.connect("mongodb://localhost:27017/address-book", {
     useNewUrlParser: true,
     useUnifiedTopology: true,
     useFindAndModify: false
