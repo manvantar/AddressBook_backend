@@ -1,0 +1,11 @@
+{
+    "contact1":{
+        "firstName": "Manu",
+            "lastName": "KV",
+            "phoneNumber": "9663393103",
+            "city": "Bengaluru",
+            "state": "Karnataka",
+            "pincode": "560076",
+            "emailId": "manukvshetty@gmail.com"
+    }
+}

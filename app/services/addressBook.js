@@ -8,7 +8,7 @@ class ContactService {
     * @return callback is used to callback Controller
     */
     create = (newData, callback) => {
-        contactModel.create(userData, (error, data) => {
+        contactModel.create(newData, (error, data) => {
             return (error) ? callback(error, null) : callback(null, data);
         })
     }

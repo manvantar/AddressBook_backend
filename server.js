@@ -19,6 +19,9 @@ app.get('/', (req, res) => {
     res.json({"message": "Welcome to AddressBook application Backend"});
 });
 
+// Require address routes
+require('./app/routes/addressBook.js')(app);
+
 // listen for requests
 const port = process.env.SERVER_PORT;
 module.exports= app.listen(port, () =>
