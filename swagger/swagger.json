@@ -1,0 +1,217 @@
+{
+  "swagger":"2.0",
+  "info": {
+    "title": "Address Book Backend",
+    "description": "AddressBook form",
+    "version": "1.0.0"
+  },
+  "host": "localhost:2000",
+  "basePath": "/",
+  "tags": [],
+  "schemes": [
+    "http"
+  ],
+  "consumes": [],
+  "produces": [],
+  "paths": {
+    "/add/addressBook": {
+      "post": {
+        "tags": [],
+        "description": "",
+        "parameters": [
+          {
+            "name": "create addressBook",
+            "in": "body",
+            "required": true,
+            "schema": {
+                "$ref": "#/definitions/AddressBook"
+            }
+          }
+        ],
+        "responses": {
+          "201": {
+            "description": "Created"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        }
+      }
+    },
+    "/addressBooks": {
+      "get": {
+        "tags": [],
+        "description": "",
+        "parameters": [
+
+        ],
+        "responses": {
+          "200":{
+            "description":"successfull"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        },
+        "security": [
+          {
+            "JWT": []
+          }
+        ]
+      }
+    },
+    "/addressBooks/:addressBookId": {
+      "get": {
+        "tags": [],
+        "description": "",
+        "parameters": [
+          {
+            "name": "addressBookId",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200":{
+            "description":"successfull"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "404": {
+            "description": "Not Found"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        },
+        "security": [
+          {
+            "JWT": []
+          }
+        ]
+      }
+    },
+    "/update/addressBook/:addressBookId": {
+      "put": {
+        "tags": [],
+        "description": "",
+        "parameters": [
+          {
+            "name": "addressBookId",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "newAddressBookData",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/AddressBook"
+          }
+        }
+        ],
+        "responses": {
+          "200":{
+            "description":"successfull"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "404": {
+            "description": "Not Found"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        },
+        "security": [
+          {
+            "JWT": []
+          }
+        ]
+      }
+    },
+    "/delete/addressBook/:addressBookId": {
+      "delete": {
+        "tags": [],
+        "description": "",
+        "parameters": [
+          {
+            "name": "addressBookId",
+            "in": "path",
+            "required": true,
+            "type": "string"            
+          }
+        ],
+        "responses": {
+          "200":{
+            "description":"successfull"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "404": {
+            "description": "Not Found"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        },
+        "security": [
+          {
+            "JWT": []
+          }
+        ]
+      }
+    }
+  },
+  "definitions": {
+    "AddressBook": {
+      "type": "object",
+      "properties": {
+        "firstName": {
+          "type": "string"
+        },
+        "lastName": {
+          "type": "string"
+        },
+        "phoneNumber": {
+          "type": "number"
+        },
+        "city": {
+          "type": "string"
+        },
+        "state": {
+          "type": "string"
+        },
+        "pincode": {
+          "type": "number"
+        },
+        "emailId": {
+          "type": "string"
+        }          
+      }
+    }
+  }
+}
