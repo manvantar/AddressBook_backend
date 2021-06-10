@@ -93,5 +93,32 @@ class Controll {
         })
     }
 
+    /**
+     * @description find one the Contact Data and Delete
+     * @param req is request sent from http
+     * @param res is used to send the Response
+     */
+        delete = (req, res) => {
+        let contactObjectId = req.params.contactId;
+        contactService.deleteDataUsingId(contactObjectId, error => {
+            console.log(error);
+            if (error) {
+                if (error.kind === 'ObjectId' || error == "no contact") {
+                    return res.status(404).send({
+                        success: false,
+                        message: "Contact not found with id " + contactObjectId
+                    });
+                }
+                return res.status(500).send({
+                    success: false,
+                    message: "Error retrieving Contact with id " + contactObjectId
+                });
+            }
+            res.send({
+                success: true,
+                message: "Contact deleted successfully!"
+            });
+        })
+    };
 }
 module.exports = new Controll();

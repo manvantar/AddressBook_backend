@@ -61,5 +61,19 @@ class ContactModel {
             return (error) ? callback(error, null) : callback(null, data);
         })
     }
+
+    /**
+    * @description delete the Contact Data from MongoDB
+    * @param objectId, callback is data sent from Services
+    * @return callback is used to callback Services with or without error message
+    */
+    deleteDataUsingId = (contactObjectId, callback) => {
+        Contact.findByIdAndDelete(contactObjectId, (error,data) => {      
+            if(!data && !error){
+                error="no contact";
+            }
+            return (error) ? callback(error) : callback(null);
+        })
+    }
 }
 module.exports = new ContactModel();
