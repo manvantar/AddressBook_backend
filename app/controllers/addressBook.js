@@ -1,5 +1,6 @@
 const contactService = require('../services/addressBook.js');
 const { joiValidator } = require('../middleware/validation.js');
+const logger = require('../../config/logger.js');
 
 class Controll {
 
@@ -33,5 +34,64 @@ class Controll {
             })
         })
     }
+
+
+    /**
+     * @description find all the Contacts Data
+     * @param req is request sent from http
+     * @param res is used to send the Response
+     */
+    findAllContacts = (req, res) => {
+        contactService.findAllContacts((error, Contacts) => {
+            if (error) {
+                return res.status(500).send({
+                    success: false,
+                    message: "Some error occured while fetching Data"
+                });
+            }
+            res.send({
+                success: true,
+                message: "Retrived all the employee data successfully",
+                Contacts: Contacts
+            })
+        })
+    }
+
+
+    /**
+     * @description find one the Contact Data
+     * @param req is request sent from http
+     * @param res is used to send the Response
+     */
+    findOneData = (req, res) => {
+        let contactObjectId = req.params.contactId;
+        contactService.findDataId(contactObjectId, (error, contactData) => {
+            if (error) {
+                logger.error("Contact not found with id " + contactObjectId);
+                if (error.kind === 'ObjectId') {
+                    return res.status(404).send({
+                        success: false,
+                        message: "Contact not found with id " + contactObjectId
+                    });
+                }
+                return res.status(500).send({
+                    success: false,
+                    message: "Error retrieving Contact with id " + contactObjectId
+                });
+            }
+            if (contactData)
+                res.send({
+                    success: true,
+                    foundData: contactData
+                });
+            else {
+                return res.status(404).send({
+                    success: false,
+                    message: "Contact not found with id " + req.params.ContactId
+                });
+            }
+        })
+    }
+
 }
-module.exports=new Controll();
+module.exports = new Controll();

@@ -12,6 +12,28 @@ class ContactService {
             return (error) ? callback(error, null) : callback(null, data);
         })
     }
-}
 
-module.exports=new ContactService();
+    /**
+    * @description retrive all the Employee Data
+    * @param callback is data sent from Controller
+    * @return callback is used to callback Controller with data or error message
+    */
+    findAllContacts = (callback) => {
+        contactModel.findAllContacts((error, data) => {
+            return (error) ? callback(error, null) : callback(null, data);
+        });
+    }
+
+    /**
+    * @description retrive Employee Data
+    * @param objectId and callback is data sent from Controller
+    * @return callback is used to callback Controller with data or error message
+    */
+    findDataId = (contactObjectId, callback) => {
+        contactModel.findDataId(contactObjectId, (error, data) => {
+            return (error) ? callback(error, null) : callback(null, data);
+        });
+    }
+
+}
+module.exports = new ContactService();
