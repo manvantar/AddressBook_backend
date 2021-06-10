@@ -1,5 +1,6 @@
 const addressBookController = require('../controllers/addressBook.js');
 const userController = require('../controllers/user.js');
+const helper= require('../middleware/helper.js')
 
 module.exports = (app) => {
 
@@ -7,7 +8,7 @@ module.exports = (app) => {
     app.post('/add/addressBook', addressBookController.create);
 
     // Retrieve all addressBooks
-    app.get('/addressBooks',  addressBookController.findAllContacts);
+    app.get('/addressBooks', helper.checkToken, addressBookController.findAllContacts);
 
     // Retrieve a single addressBook with addressBookId
     app.get('/addressBooks/:addressBookId',  addressBookController.findOneData);
