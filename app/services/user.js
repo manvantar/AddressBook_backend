@@ -1,4 +1,5 @@
 const userModel = require('../models/user.js');
+const { genSaltSync, hashSync } = require("bcrypt");
 
 class UserService {
 
@@ -7,8 +8,10 @@ class UserService {
     * @param newData is data sent from Controller
     * @return callback is used to callback Controller
     */
-    create = (newData, callback) => {
-        userModel.create(newData, (error, data) => {
+    create = (userData, callback) => {
+        const salt = genSaltSync(5);
+        userData.password = hashSync(userData.password, salt);
+        userModel.create(userData, (error, data) => {
             return (error) ? callback(error, null) : callback(null, data);
         })
     }
