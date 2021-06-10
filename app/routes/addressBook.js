@@ -1,5 +1,6 @@
 const addressBookController = require('../controllers/addressBook.js');
 const userController = require('../controllers/user.js');
+
 module.exports = (app) => {
 
     // Create a new addressBook
@@ -22,6 +23,5 @@ module.exports = (app) => {
 
     // login a as user
     app.post('/user/login', userController.login);
-
     
 }
