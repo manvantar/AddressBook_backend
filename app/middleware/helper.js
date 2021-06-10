@@ -27,7 +27,7 @@ class Helper {
     * @description CheckToken method is used to validate the Token before the execution of next
     * @param req from the user, res to server , next method 
     */
-    checkToken = (req, res, next) => {
+    validateToken = (req, res, next) => {
         let token = req.get("authorization");
         if (token) {
             token = token.slice(7);
@@ -39,10 +39,7 @@ class Helper {
                     });
                 } 
                 else {
-                    return res.status(200).send({
-                        success: true,
-                        message: "you are authorised"
-                    });
+                    next();
                 }
             });
         }
