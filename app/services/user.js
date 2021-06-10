@@ -1,6 +1,6 @@
 const userModel = require('../models/user.js');
 const { genSaltSync, hashSync } = require("bcrypt");
-const bcrypt = require('bcrypt');
+const helper = require('../middleware/helper.js');
 
 class UserService {
 
@@ -27,7 +27,7 @@ class UserService {
             if (error) {
                 return callback(error, null);
             }
-            return (!bcrypt.compareSync(credentials.password, data.password)) ? callback("Invalid Credentials", null) : callback(null, "successful Login");
+            return (!helper.checkPassword(credentials.password, data.password)) ? callback("Invalid Credentials", null) : callback(null, "successful Login");
         });
     }
 
