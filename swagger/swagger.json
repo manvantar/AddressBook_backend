@@ -7,16 +7,12 @@
   },
   "host": "localhost:2000",
   "basePath": "/",
-  "tags": [],
   "schemes": [
     "http"
   ],
-  "consumes": [],
-  "produces": [],
   "paths": {
     "/add/addressBook": {
       "post": {
-        "tags": [],
         "description": "",
         "parameters": [
           {
@@ -61,12 +57,7 @@
           "500": {
             "description": "Internal Server Error"
           }
-        },
-        "security": [
-          {
-            "JWT": []
-          }
-        ]
+        }
       }
     },
     "/addressBooks/:addressBookId": {
@@ -97,12 +88,7 @@
           "500": {
             "description": "Internal Server Error"
           }
-        },
-        "security": [
-          {
-            "JWT": []
-          }
-        ]
+        }
       }
     },
     "/update/addressBook/:addressBookId": {
@@ -141,12 +127,7 @@
           "500": {
             "description": "Internal Server Error"
           }
-        },
-        "security": [
-          {
-            "JWT": []
-          }
-        ]
+        }
       }
     },
     "/delete/addressBook/:addressBookId": {
@@ -177,12 +158,7 @@
           "500": {
             "description": "Internal Server Error"
           }
-        },
-        "security": [
-          {
-            "JWT": []
-          }
-        ]
+        }
       }
     }
   },
