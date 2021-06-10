@@ -1,4 +1,5 @@
 const contactService = require('../services/addressBook.js');
+const { joiValidator } = require('../middleware/validation.js');
 
 class Controll {
 
@@ -9,6 +10,14 @@ class Controll {
      */
     create = (req, res) => {
         let newContactData = req.body;
+        var validationResult = joiValidator.validate(newContactData);
+        if (validationResult.error) {
+            return res.status(400).send({
+                success: false,
+                message: validationResult.error.details[0].message
+            });
+        }
+
         contactService.create(newContactData, (error, resultdata) => {
             if (error) {
                 return res.status(500).send({
