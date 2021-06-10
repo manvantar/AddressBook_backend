@@ -1,6 +1,8 @@
 const joi = require("@hapi/joi");
 
 class Validation{
+
+  //validates AddressBook
    joiAddressBookValidator= joi.object({
     firstName: joi.string().alphanum().min(3).max(30),
     lastName: joi.string().alphanum().min(2).max(30),
@@ -11,12 +13,20 @@ class Validation{
     emailId: joi.string().email().required(),       
   });
 
+  //valiadtes newUserdata
   joiUserValidator= joi.object({
     firstName: joi.string().alphanum().min(3).max(30),
     lastName: joi.string().alphanum().min(2).max(30),
     emailId: joi.string().email().required(),
     password: joi.string().pattern(new RegExp('^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#\$%\^&\*])(?=.{8,})')).required()
   });
-}//This is validates the data 
+
+  //validates Credentials
+  joiCredentialsValidator= joi.object({
+    emailId: joi.string().email().required(),
+    password: joi.string().pattern(new RegExp('^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#\$%\^&\*])(?=.{8,})')).required()
+  });
+
+}
 
 module.exports = new Validation();

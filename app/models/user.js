@@ -6,7 +6,7 @@ const mongoose = require('mongoose');
 const UserSchema = mongoose.Schema({
     firstName: { type: String, required: true, validate: /^[a-zA-Z ]{3,30}$/ },
     lastName: { type: String, required: true, validate: /^[a-zA-Z ]{1,30}$/ },
-    emailId: { type: String, required: true, validate: /^[a-zA-Z0-9+_.-]+@[a-zA-Z0-9]+[.]+[a-zA-Z]+$/ },
+    emailId: { type: String, required: true, unique:true, validate: /^[a-zA-Z0-9+_.-]+@[a-zA-Z0-9]+[.]+[a-zA-Z]+$/ },
     password: { type: String, required: true }
 }, {
     timestamps: false
@@ -32,6 +32,20 @@ class UserModel {
             return (error) ? callback(error, null) : callback(null, data);
         });
     }
+
+    /**
+    * @description Get the data by emailID
+    * @param loginData having emailId and password
+    * @return callback is used to callback Services with data or error message
+    */
+    checkLoginDetails = (credentials, callback) => {
+        User.findOne({ "emailId": credentials.emailId }, (error, data) => {
+            if (error) {
+                return callback(error, null)
+            }
+            return (!data) ? callback("UserId doesn't exist", null) : callback(null, data);
+        })
+    }
 }
 
-module.exports= new UserModel();
+module.exports = new UserModel();

@@ -17,8 +17,11 @@ module.exports = (app) => {
     // Update a addressBook with addressBookId
     app.put('/update/addressBook/:addressBookId',  addressBookController.update);
 
-    // Create a new addressBook
+    // Create a new user
     app.post('/add/user', userController.create);
+
+    // login a as user
+    app.post('/user/login', userController.login);
 
     
 }

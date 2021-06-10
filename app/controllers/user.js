@@ -33,5 +33,35 @@ class UserControll {
             })
         })
     }
+
+    /**
+     * @description to login the User Data
+     * @param req is request sent from http having emailId and Password
+     * @param res is used to send the Response
+     */
+    login = (req, res) => {
+        var credentials = req.body;
+        var validationResult = validator.joiCredentialsValidator.validate(credentials);
+        if (validationResult.error) {
+            return res.status(400).send({
+                success: false,
+                message: validationResult.error.details[0].message
+            });
+        }
+     
+        userService.checkLoginDetails(credentials, (error, data) => {
+            if (error) {
+                return res.status(404).send({
+                    success: false,
+                    message: error
+                });
+            }
+            res.send({
+                success: true,
+                message: "logged in successfully",
+                token: data
+            });
+        })
+    }
 }
-module.exports= new UserControll();
+module.exports = new UserControll();

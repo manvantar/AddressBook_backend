@@ -1,5 +1,6 @@
 const userModel = require('../models/user.js');
 const { genSaltSync, hashSync } = require("bcrypt");
+const bcrypt = require('bcrypt');
 
 class UserService {
 
@@ -15,5 +16,20 @@ class UserService {
             return (error) ? callback(error, null) : callback(null, data);
         })
     }
+
+    /**
+     * @description checkLogindetails used to validate the username and password
+     * @param loginData having emailId and password
+     * @return callback is used to callback controller with JsonWebToken or error message
+     */
+    checkLoginDetails = (credentials, callback) => {
+        userModel.checkLoginDetails(credentials, (error, data) => {
+            if (error) {
+                return callback(error, null);
+            }
+            return (!bcrypt.compareSync(credentials.password, data.password)) ? callback("Invalid Credentials", null) : callback(null, "successful Login");
+        });
+    }
+
 }
 module.exports = new UserService();
