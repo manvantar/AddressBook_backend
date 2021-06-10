@@ -1,19 +1,19 @@
-const contactController = require('../controllers/addressBook.js');
+const addressBookController = require('../controllers/addressBook.js');
 
 module.exports = (app) => {
 
-    // Create a new contact
-    app.post('/add', contactController.create);
+    // Create a new addressBook
+    app.post('/add/addressBook', addressBookController.create);
 
-    // Retrieve all contacts
-    app.get('/contacts',  contactController.findAllContacts);
+    // Retrieve all addressBooks
+    app.get('/addressBooks',  addressBookController.findAllContacts);
 
-    // Retrieve a single contact with contactId
-    app.get('/contacts/:contactId',  contactController.findOneData);
+    // Retrieve a single addressBook with addressBookId
+    app.get('/addressBooks/:addressBookId',  addressBookController.findOneData);
 
-    // Delete a contact with contactId
-    app.delete('/delete/:contactId',  contactController.delete);
+    // Delete a addressBook with addressBookId
+    app.delete('/delete/addressBook/:addressBookId',  addressBookController.delete);
 
-    /*// Update a contact with contactId
-    app.put('/update/:contactId',  contactController.update);*/
+    // Update a addressBook with addressBookId
+    app.put('/update/addressBook/:addressBookId',  addressBookController.update);
 }

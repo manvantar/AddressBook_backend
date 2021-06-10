@@ -1,4 +1,4 @@
-const contactService = require('../services/addressBook.js');
+const addressBookService = require('../services/addressBook.js');
 const { joiValidator } = require('../middleware/validation.js');
 const logger = require('../../config/logger.js');
 
@@ -19,7 +19,7 @@ class Controll {
             });
         }
 
-        contactService.create(newContactData, (error, resultdata) => {
+        addressBookService.create(newContactData, (error, resultdata) => {
             if (error) {
                 return res.status(500).send({
                     success: false,
@@ -42,7 +42,7 @@ class Controll {
      * @param res is used to send the Response
      */
     findAllContacts = (req, res) => {
-        contactService.findAllContacts((error, Contacts) => {
+        addressBookService.findAllContacts((error, Contacts) => {
             if (error) {
                 return res.status(500).send({
                     success: false,
@@ -51,7 +51,7 @@ class Controll {
             }
             res.send({
                 success: true,
-                message: "Retrived all the employee data successfully",
+                message: "Retrived all the addressBook data successfully",
                 Contacts: Contacts
             })
         })
@@ -64,25 +64,25 @@ class Controll {
      * @param res is used to send the Response
      */
     findOneData = (req, res) => {
-        let contactObjectId = req.params.contactId;
-        contactService.findDataId(contactObjectId, (error, contactData) => {
+        let addressBookObjectId = req.params.addressBookId;
+        addressBookService.findDataId(addressBookObjectId, (error, addressBookData) => {
             if (error) {
-                logger.error("Contact not found with id " + contactObjectId);
+                logger.error("Contact not found with id " + addressBookObjectId);
                 if (error.kind === 'ObjectId') {
                     return res.status(404).send({
                         success: false,
-                        message: "Contact not found with id " + contactObjectId
+                        message: "Contact not found with id " + addressBookObjectId
                     });
                 }
-                return res.status(500).send({
-                    success: false,
-                    message: "Error retrieving Contact with id " + contactObjectId
-                });
+                 return res.status(500).send({
+                        success: false,
+                        message: "Error retrieving Contact with id " + addressBookObjectId
+                    });       
             }
-            if (contactData)
+            if (addressBookData)
                 res.send({
                     success: true,
-                    foundData: contactData
+                    foundData: addressBookData
                 });
             else {
                 return res.status(404).send({
@@ -98,20 +98,20 @@ class Controll {
      * @param req is request sent from http
      * @param res is used to send the Response
      */
-        delete = (req, res) => {
-        let contactObjectId = req.params.contactId;
-        contactService.deleteDataUsingId(contactObjectId, error => {
+    delete = (req, res) => {
+        let addressBookObjectId = req.params.addressBookId;
+        addressBookService.deleteDataUsingId(addressBookObjectId, error => {
             console.log(error);
             if (error) {
-                if (error.kind === 'ObjectId' || error == "no contact") {
+                if (error.kind === 'ObjectId' || error == "no addressBook") {
                     return res.status(404).send({
                         success: false,
-                        message: "Contact not found with id " + contactObjectId
+                        message: "Contact not found with id " + addressBookObjectId
                     });
                 }
                 return res.status(500).send({
                     success: false,
-                    message: "Error retrieving Contact with id " + contactObjectId
+                    message: "Error retrieving Contact with id " + addressBookObjectId
                 });
             }
             res.send({
@@ -120,5 +120,49 @@ class Controll {
             });
         })
     };
+
+    /**
+     * @description update addressBook Data by using Id after the data validation
+     * @param req is request sent from http
+     * @param res is used to send the Response
+     */
+    update = (req, res) => {
+        var validationResult = joiValidator.validate(req.body);
+        if (validationResult.error) {
+            return res.status(400).send({
+                success: false,
+                message: validationResult.error.details[0].message
+            });
+        }
+        let addressBookData = req.body;
+        let addressBookObjectId = req.params.addressBookId;
+        addressBookService.updateByID(addressBookObjectId, addressBookData, (error, resultData) => {
+            if (error) {
+                if (error.kind === 'ObjectId') {
+                    return res.status(404).send({
+                        success: false,
+                        message: "Contact not found with id " + addressBookObjectId
+                    });
+                }
+                let str=error;
+                if(error.message.includes("E11000 duplicate key error collection: contact-book.addressbooks index: phoneNumber_1")){
+                    return res.status(500).send({
+                        success: false,
+                        message: "Connot updating addressBookID with duplicate Mobile Number"
+                    });    
+                }
+                return res.status(500).send({
+                    success: false,
+                    message: "Error occured while updating addressBookID with " + addressBookObjectId
+                });
+            }
+            res.send({
+                success: true,
+                message: "Contact Data updated successfully",
+                UpdatedData: resultData
+            })
+        })
+    };
+    
 }
 module.exports = new Controll();

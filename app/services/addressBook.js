@@ -40,10 +40,22 @@ class ContactService {
     * @param ContactID and callback is data sent from Controller
     * @return callback is used to callback Controller with or  without error message
     */
-         deleteDataUsingId = (contactObjectId, callback) => {
-            contactModel.deleteDataUsingId(contactObjectId, error => {
-                return (error) ? callback(error) : callback(null);
-            });
-        }
+    deleteDataUsingId = (contactObjectId, callback) => {
+        contactModel.deleteDataUsingId(contactObjectId, error => {
+            return (error) ? callback(error) : callback(null);
+        });
+    }
+
+    /**
+    * @description Create method of Model is called to save the new Contact Data  Which also encrypts the password
+    * @param userdData is data sent from Controller
+    * @return callback is used to callback Controller
+    */
+    updateByID = (userId, newUserData, callback) => {
+        contactModel.updateById(userId, newUserData, (error, data) => {
+            return (error) ? callback(error, null) : callback(null, data);
+        })
+    }
+
 }
 module.exports = new ContactService();
