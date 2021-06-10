@@ -1,5 +1,5 @@
 const addressBookService = require('../services/addressBook.js');
-const { joiValidator } = require('../middleware/validation.js');
+const validator = require('../middleware/validation.js');
 const logger = require('../../config/logger.js');
 
 class Controll {
@@ -11,7 +11,7 @@ class Controll {
      */
     create = (req, res) => {
         let newContactData = req.body;
-        var validationResult = joiValidator.validate(newContactData);
+        var validationResult = validator.joiAddressBookValidator.validate(newContactData);
         if (validationResult.error) {
             return res.status(400).send({
                 success: false,
@@ -127,7 +127,7 @@ class Controll {
      * @param res is used to send the Response
      */
     update = (req, res) => {
-        var validationResult = joiValidator.validate(req.body);
+        var validationResult = validator.joiAddressBookValidator.validate(req.body);
         if (validationResult.error) {
             return res.status(400).send({
                 success: false,

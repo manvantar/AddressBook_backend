@@ -160,7 +160,33 @@
           }
         }
       }
-    }
+    },
+    "/add/user": {
+        "post": {
+          "description": "",
+          "parameters": [
+            {
+              "name": "create newUser",
+              "in": "body",
+              "required": true,
+              "schema": {
+                  "$ref": "#/definitions/User"
+              }
+            }
+          ],
+          "responses": {
+            "201": {
+              "description": "Created"
+            },
+            "400": {
+              "description": "Bad Request"
+            },
+            "500": {
+              "description": "Internal Server Error"
+            }
+          }
+        }
+      }
   },
   "definitions": {
     "AddressBook": {
@@ -188,6 +214,23 @@
           "type": "string"
         }          
       }
+    },
+    "User": {
+        "type": "object",
+        "properties": {
+          "firstName": {
+            "type": "string"
+          },
+          "lastName": {
+            "type": "string"
+          },
+          "emailId": {
+            "type": "string"
+          },
+          "password": {
+            "type": "string"
+          }
+        }
     }
   }
 }
