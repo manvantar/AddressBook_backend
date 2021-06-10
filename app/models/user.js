@@ -9,8 +9,7 @@ const UserSchema = mongoose.Schema({
     emailId: { type: String, required: true, unique:true, validate: /^[a-zA-Z0-9+_.-]+@[a-zA-Z0-9]+[.]+[a-zA-Z]+$/ },
     password: { type: String, required: true }
 }, {
-    timestamps: false,
-    visualViewport:false
+    timestamps: false
 });
 
 const User = mongoose.model('User', UserSchema)

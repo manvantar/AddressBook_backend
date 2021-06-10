@@ -34,7 +34,12 @@
           "500": {
             "description": "Internal Server Error"
           }
-        }
+        },
+        "security": [
+          {
+            "JWT": []
+          }
+        ]
       }
     },
     "/addressBooks": {
@@ -57,7 +62,12 @@
           "500": {
             "description": "Internal Server Error"
           }
-        }
+        },
+        "security": [
+          {
+            "JWT": []
+          }
+        ]
       }
     },
     "/addressBooks/:addressBookId": {
@@ -88,7 +98,12 @@
           "500": {
             "description": "Internal Server Error"
           }
-        }
+        },
+        "security": [
+          {
+            "JWT": []
+          }
+        ]
       }
     },
     "/update/addressBook/:addressBookId": {
@@ -127,7 +142,12 @@
           "500": {
             "description": "Internal Server Error"
           }
-        }
+        },
+        "security": [
+          {
+            "JWT": []
+          }
+        ]
       }
     },
     "/delete/addressBook/:addressBookId": {
@@ -158,7 +178,12 @@
           "500": {
             "description": "Internal Server Error"
           }
-        }
+        },
+        "security": [
+          {
+            "JWT": []
+          }
+        ]
       }
     },
     "/add/user": {
@@ -186,7 +211,40 @@
             }
           }
         }
+      },
+      "/user/login": {
+        "post": {
+          "description": "",
+          "parameters": [
+            {
+              "name": "user Login",
+              "in": "body",
+              "required": true,
+              "schema": {
+                  "$ref": "#/definitions/Login"
+              }
+            }
+          ],
+          "responses": {
+            "201": {
+              "description": "Successful Login"
+            },
+            "400": {
+              "description": "Bad Request"
+            },
+            "500": {
+              "description": "Internal Server Error"
+            }
+          }
+        }
       }
+  },
+  "securityDefinitions": {
+    "JWT": {
+      "type": "apiKey",
+      "name": "Authorization",
+      "in": "header"
+    }
   },
   "definitions": {
     "AddressBook": {
@@ -231,6 +289,17 @@
             "type": "string"
           }
         }
+    },
+    "Login": {
+      "type": "object",
+      "properties": {
+        "emailId": {
+          "type": "string"
+        },
+        "password": {
+          "type": "string"
+        }
+      }
     }
   }
 }

@@ -4,7 +4,7 @@ const server = require("../server");
 chai.should();
 chai.use(chaiHttp);
 const fs = require('fs');
-let rawdata = fs.readFileSync('test/contactsData.json');
+let rawdata = fs.readFileSync('test/addressBook.json');
 let contactJSON = JSON.parse(rawdata);
 
 describe("GET /", () => {
