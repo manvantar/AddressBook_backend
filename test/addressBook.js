@@ -135,6 +135,7 @@ describe("POST /add/addressBook", () => {
             .end((error, response) => {
                 response.should.have.status(201);
                 response.body.should.have.property('success').eq(true);
+                response.body.should.have.property('message').eq("Contact Data Inserted successfully");
                 done();
             });
     })
@@ -147,24 +148,26 @@ describe("POST /add/addressBook", () => {
              .end((error, response) => {
                  response.should.have.status(401);
                  response.body.should.have.property('success').eq(false);
+                 response.body.should.have.property('message').eq("Access Denied! Unauthorized User!! add Token and then Proceed ");
                  done();
              });
      })
 
-    it("givenDuplicateAddressBookAndInvalidToken_whenAdded_shouldReturnStatus=401Sucess=false", (done) => {
+    it("givenDuplicateAddressBookAndInvalidToken_whenAdded_shouldReturnStatus=400Sucess=false", (done) => {
         
         chai.request(server)
             .post("/add/addressBook")
             .send(addressBookJSON.ValidAddressBookData)
-            .set('Authorization',invalidToken)
+            .set('Authorization',"Bearar "+invalidToken)
             .end((error, response) => {
-                response.should.have.status(401);
+                response.should.have.status(400);
                 response.body.should.have.property('success').eq(false);
+                response.body.should.have.property('message').eq("Invalid Token...or Expired");
                 done();
             });
     })
 
-    it("giveninValidAddressBookAndValidToken_whenAdded_shouldReturnStatus=400Sucess=false", (done) => {
+    it("givenInValidAddressBookAndValidToken_whenAdded_shouldReturnStatus=400Sucess=false", (done) => {
         
         chai.request(server)
             .post("/add/addressBook")
@@ -187,6 +190,7 @@ describe("GET /addressBooks", () => {
             .end((error, response) => {
                 response.should.have.status(200);
                 response.body.should.have.property('success').eq(true);
+                response.body.should.have.property('message').eq("Retrived all the addressBook data successfully")
                 done();
             });
     })
@@ -199,6 +203,7 @@ describe("GET /addressBooks", () => {
             .end((error, response) => {
                 response.should.have.status(400);
                 response.body.should.have.property('success').eq(false);
+                response.body.should.have.property('message').eq("Invalid Token...or Expired");
                 done();
             });
     })
@@ -211,6 +216,7 @@ describe("GET /addressBooks", () => {
             .end((error, response) => {
                 response.should.have.status(401);
                 response.body.should.have.property('success').eq(false);
+                response.body.should.have.property('message').eq("Access Denied! Unauthorized User!! add Token and then Proceed ");
                 done();
             });
     })
@@ -237,6 +243,7 @@ describe("GET /addressBooks/addressbookID", () => {
             .end((error, response) => {
                 response.should.have.status(400);
                 response.body.should.have.property('success').eq(false);
+                response.body.should.have.property('message').eq("Invalid Token...or Expired");
                 done();
             });
     })
@@ -249,6 +256,7 @@ describe("GET /addressBooks/addressbookID", () => {
             .end((error, response) => {
                 response.should.have.status(401);
                 response.body.should.have.property('success').eq(false);
+                response.body.should.have.property('message').eq("Access Denied! Unauthorized User!! add Token and then Proceed ");
                 done();
             });
     })
@@ -261,6 +269,7 @@ describe("GET /addressBooks/addressbookID", () => {
             .end((error, response) => {
                 response.should.have.status(404);
                 response.body.should.have.property('success').eq(false);
+                response.body.should.have.property('message').eq("Contact not found with id 60c1f0dc31a6f437e485632");
                 done();
             });
     })
