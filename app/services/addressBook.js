@@ -55,6 +55,7 @@ class ContactService {
     */
     updateByID = (userId, newUserData, callback) => {
         contactModel.updateById(userId, newUserData, (error, data) => {
+            logger.info("services->",data)
             return (error) ? callback(error, null) : callback(null, data);
         })
     }

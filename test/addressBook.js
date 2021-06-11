@@ -226,7 +226,7 @@ describe("GET /addressBooks/addressbookID", () => {
     it("givenAddressbookIdAndToken_whenRetrieved_shouldReturnStatus=200Sucess=true", (done) => {
 
         chai.request(server)
-            .get("/addressBooks/" + addressBookJSON.validAddressBookId)
+            .get("/addressBooks/" + addressBookJSON.validAddressBookId3)
             .set('Authorization', 'Bearar ' + jwToken)
             .end((error, response) => {
                 response.should.have.status(200);
@@ -261,15 +261,15 @@ describe("GET /addressBooks/addressbookID", () => {
             });
     })
 
-    it("givenInValidAddressbookIdAndToken_whenRetrieved_shouldReturnStatus=404Sucess=false", (done) => {
+    it("givenInValidAddressbookIdAndToken_whenRetrieved_shouldReturnStatus=400Sucess=false", (done) => {
 
         chai.request(server)
             .get("/addressBooks/" + addressBookJSON.inValidAddressBookId)
             .set('Authorization', jwToken)
             .end((error, response) => {
-                response.should.have.status(404);
+                response.should.have.status(400);
                 response.body.should.have.property('success').eq(false);
-                response.body.should.have.property('message').eq("Contact not found with id 60c1f0dc31a6f437e485632");
+                response.body.should.have.property('message')
                 done();
             });
     })
@@ -333,15 +333,16 @@ describe("/PUT /update/addressBook/Id", () => {
 
     it("givenAddressBookDataToken_whenUpdated_shouldReturnStatus=200andSuccess=true", done => {
         chai
-            .request(server)
-            .put("update/addressBook/"+addressBookJSON.validAddressBookId3)
-            .set('Authorization', 'Bearar ' + jwToken)
-            .send(addressBookJSON.validAddressBookData2)
-            .end((err, response) => {
-                response.should.have.status(200);
-                response.body.should.have.property('success').eq(true);
-                done();
-            });
+        .request(server)
+        .put("/update/addressBook/" + addressBookJSON.validAddressBookId3)
+        .send(addressBookJSON.ValidAddressBookData2)
+        .set('Authorization', 'Bearar ' + jwToken)
+        .end((err, response) => {
+            response.should.have.status(200);
+            response.body.should.have.property('success').eq(true)
+            response.body.should.have.property('message').eq("Contact Data updated successfully")
+            done();
+        });
     });
 
     it("givenInvalidAddressBookDataToken_whenUpdated_shouldReturnStatus=404andSuccess=false", done => {

@@ -2,7 +2,7 @@
     "ValidAddressBookData":{
         "firstName": "Manu",
         "lastName": "KV",
-        "phoneNumber": "9233488835",
+        "phoneNumber": "9233488837",
         "city": "Bengaluru",
         "state": "Karnataka",
         "pincode": "560076",
@@ -12,9 +12,10 @@
     {
         "firstName": "Manu",
         "lastName": "KV",
-        "emailId": "manukvsh133@gmail.com",
+        "emailId": "manukvsh1334@gmail.com",
         "password": "!@#EDsaq123"        
     },
+    "validAddressBookId2":"60c38c92dac9d72d104dc125",
     "inValidUserData":
     {
         "firstName": "Manu",
@@ -53,7 +54,6 @@
         "emailId": "manukvsh132gmail.com",
         "password": "!@#EDsaq1" 
     },
-    "validAddressBookId2":"60c1f0dc31a6f437e48563d2",
     "validAddressBookId3":"60c305ae65ea2a278f7e3625",
     "ValidAddressBookData2":{
         "firstName": "Manu",
