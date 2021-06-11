@@ -274,3 +274,57 @@ describe("GET /addressBooks/addressbookID", () => {
             });
     })
 })
+
+describe("/Delele /Id", () => { 
+    
+    it("givenAddressBookIdValidToken_whenDeleted_shouldReturnStatus=200andsuccess=true", done => {
+        chai
+            .request(server)
+            .delete("/delete/addressBook/"+addressBookJSON.validAddressBookId2)
+            .set('Authorization', 'Bearar ' + jwToken)
+            .end((err, response) => {
+                response.should.have.status(200);
+                response.body.should.have.property('success').eq(true);
+                done();
+            });
+    });
+
+    it("givenInvalidAddressBookIdValidToken_whenDeleted_shouldReturnStatus=404andSuccess=false", done => {
+        chai
+            .request(server)
+            .delete("/delete/addressBook/"+addressBookJSON.inValidAddressBookId)
+            .set('Authorization', 'Bearar ' + jwToken)
+            .end((err, response) => {
+                response.should.have.status(404);
+                response.body.should.have.property('success').eq(false);
+                done();
+            });
+    });
+
+    it("givenAddressBookIdInvalidToken_whenDeleted_shouldReturnStatus=400andSuccess=false", done => {
+        chai
+            .request(server)
+            .delete("/delete/addressBook/"+addressBookJSON.validAddressBookId3)
+            .set('Authorization', 'Bearar ' + invalidToken)
+            .end((err, response) => {
+                response.should.have.status(400);
+                response.body.should.have.property('success').eq(false);
+                response.body.should.have.property('message').eq("Invalid Token...or Expired")
+                done();
+            });
+    });
+
+    it("givenAddressBookIdEmptyToken_whenDeleted_shouldReturnstatus=401andSuccess=false", done => {
+        chai
+            .request(server)
+            .delete("/delete/addressBook/"+addressBookJSON.validAddressBookId3)
+            .set('Authorization', empToken)
+            .end((err, response) => {
+                response.should.have.status(401);
+                response.body.should.have.property('success').eq(false)
+                response.body.should.have.property('message').eq("Access Denied! Unauthorized User!! add Token and then Proceed ")
+                done();
+            });
+    });
+    
+});
