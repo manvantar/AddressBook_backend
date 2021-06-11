@@ -334,7 +334,7 @@ describe("/PUT /update/addressBook/Id", () => {
     it("givenAddressBookDataToken_whenUpdated_shouldReturnStatus=200andSuccess=true", done => {
         chai
             .request(server)
-            .put("update/addressBook/60c1f0dc31a6f437e48563d2")
+            .put("update/addressBook/"+addressBookJSON.validAddressBookId3)
             .set('Authorization', 'Bearar ' + jwToken)
             .send(addressBookJSON.validAddressBookData2)
             .end((err, response) => {
