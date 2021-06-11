@@ -212,7 +212,7 @@
           }
         }
       },
-      "/user/login": {
+      "/login/user": {
         "post": {
           "description": "",
           "parameters": [
