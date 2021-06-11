@@ -4,7 +4,7 @@ const mongoose = require('mongoose');
  * function to connect mongoose database 
  * @returns connection
  */
-function dbconnect(){
+ dbconnect =()=>{
 
     mongoose.promise;
     mongoose.connect(process.env.DATABASE_URL, {
