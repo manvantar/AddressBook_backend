@@ -275,12 +275,12 @@ describe("GET /addressBooks/addressbookID", () => {
     })
 })
 
-describe("/Delele /Id", () => { 
-    
+describe("/Delele /addressBook/Id", () => {
+
     it("givenAddressBookIdValidToken_whenDeleted_shouldReturnStatus=200andsuccess=true", done => {
         chai
             .request(server)
-            .delete("/delete/addressBook/"+addressBookJSON.validAddressBookId2)
+            .delete("/delete/addressBook/" + addressBookJSON.validAddressBookId2)
             .set('Authorization', 'Bearar ' + jwToken)
             .end((err, response) => {
                 response.should.have.status(200);
@@ -292,7 +292,7 @@ describe("/Delele /Id", () => {
     it("givenInvalidAddressBookIdValidToken_whenDeleted_shouldReturnStatus=404andSuccess=false", done => {
         chai
             .request(server)
-            .delete("/delete/addressBook/"+addressBookJSON.inValidAddressBookId)
+            .delete("/delete/addressBook/" + addressBookJSON.inValidAddressBookId)
             .set('Authorization', 'Bearar ' + jwToken)
             .end((err, response) => {
                 response.should.have.status(404);
@@ -304,7 +304,7 @@ describe("/Delele /Id", () => {
     it("givenAddressBookIdInvalidToken_whenDeleted_shouldReturnStatus=400andSuccess=false", done => {
         chai
             .request(server)
-            .delete("/delete/addressBook/"+addressBookJSON.validAddressBookId3)
+            .delete("/delete/addressBook/" + addressBookJSON.validAddressBookId3)
             .set('Authorization', 'Bearar ' + invalidToken)
             .end((err, response) => {
                 response.should.have.status(400);
@@ -317,7 +317,7 @@ describe("/Delele /Id", () => {
     it("givenAddressBookIdEmptyToken_whenDeleted_shouldReturnstatus=401andSuccess=false", done => {
         chai
             .request(server)
-            .delete("/delete/addressBook/"+addressBookJSON.validAddressBookId3)
+            .delete("/delete/addressBook/" + addressBookJSON.validAddressBookId3)
             .set('Authorization', empToken)
             .end((err, response) => {
                 response.should.have.status(401);
@@ -326,5 +326,65 @@ describe("/Delele /Id", () => {
                 done();
             });
     });
-    
+
+});
+
+describe("/PUT /update/addressBook/Id", () => {
+
+    it("givenAddressBookDataToken_whenUpdated_shouldReturnStatus=200andSuccess=true", done => {
+        chai
+            .request(server)
+            .put("update/addressBook/60c1f0dc31a6f437e48563d2")
+            .set('Authorization', 'Bearar ' + jwToken)
+            .send(addressBookJSON.validAddressBookData2)
+            .end((err, response) => {
+                response.should.have.status(200);
+                response.body.should.have.property('success').eq(true);
+                done();
+            });
+    });
+
+    it("givenInvalidAddressBookDataToken_whenUpdated_shouldReturnStatus=404andSuccess=false", done => {
+        chai
+            .request(server)
+            .put("/update/addressBook/" + addressBookJSON.validAddressBookId3)
+            .set('Authorization', 'Bearar ' + jwToken)
+            .send(addressBookJSON.invalidAddressBookData2)
+            .end((err, response) => {
+                response.should.have.status(400);
+                response.body.should.have.property('success').eq(false);
+                done();
+            });
+    });
+
+    it("given employeeData and invalid token When updated Should return status 400 and success=false", done => {
+        chai
+            .request(server)
+            .put("/update/addressBook/" + addressBookJSON.validAddressBookId3)
+            .set('Authorization', 'Bearar ' + invalidToken)
+            .send(addressBookJSON.invalidAddressBookData2)
+            .end((err, response) => {
+                response.should.have.status(400);
+                response.body.should.have.property('success').eq(false);
+                response.body.should.have.property('message').eq("Invalid Token...or Expired")
+                if (err)
+                    done(err);
+                done();
+            });
+    });
+
+    it("given employeeData and empty token When updated Should return status 401 and success=false", done => {
+        chai
+            .request(server)
+            .put("/update/addressBook/" + addressBookJSON.validAddressBookId3)
+            .set('Authorization', empToken)
+            .send(addressBookJSON.invalidAddressBookData2)
+            .end((err, response) => {
+                response.should.have.status(401);
+                response.body.should.have.property('success').eq(false)
+                response.body.should.have.property('message').eq("Access Denied! Unauthorized User!! add Token and then Proceed ")
+                done();
+            });
+    });
+
 });

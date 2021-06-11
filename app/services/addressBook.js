@@ -1,3 +1,4 @@
+const logger = require('../../config/logger.js');
 const contactModel = require('../models/addressBook.js');
 
 class ContactService {
@@ -31,6 +32,7 @@ class ContactService {
     */
     findDataId = (contactObjectId, callback) => {
         contactModel.findDataId(contactObjectId, (error, data) => {
+            logger.info("service->",data);
             return (error) ? callback(error, null) : callback(null, data);
         });
     }

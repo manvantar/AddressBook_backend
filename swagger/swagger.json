@@ -70,7 +70,7 @@
         ]
       }
     },
-    "/addressBooks/:addressBookId": {
+    "/addressBooks/addressBookId": {
       "get": {
         "tags": [],
         "description": "",
