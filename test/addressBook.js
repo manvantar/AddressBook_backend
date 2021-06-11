@@ -8,8 +8,8 @@ let rawdata = fs.readFileSync('test/addressBook.json');
 let addressBookJSON = JSON.parse(rawdata);
 
 describe("POST /add/user", () =>{
-    it("givenNewInputBody_WhenLoggedIn_shouldReturnStatus=200,Success=true", (done) => {
-        const inputBody = addressBookJSON.loginData1;
+    it("givenNewInputBody_WhenAdded_shouldReturnStatus=201,Success=true", (done) => {
+        const inputBody = addressBookJSON.ValidUserData;
         chai.request(server)
             .post("/add/user")
             .send(inputBody)
@@ -21,8 +21,8 @@ describe("POST /add/user", () =>{
             });
     })
 
-    it("givenNewInputBody_WhenLoggedIn_shouldReturnStatus=500,Success=false", (done) => {
-        const inputBody2 = addressBookJSON.loginData2;
+    it("givenDuplicateUser_WhenAdded_shouldReturnStatus=500,Success=false", (done) => {
+        const inputBody2 = addressBookJSON.ValidUserData;
         chai.request(server)
             .post("/add/user")
             .send(inputBody2)
@@ -32,7 +32,20 @@ describe("POST /add/user", () =>{
                 done();
             });
     })
+
+    it("givenInvalidUserData_WhenAdded_shouldReturnStatus=400,Success=false", (done) => {
+        const inputBody2 = addressBookJSON.inValidUserData;
+        chai.request(server)
+            .post("/add/user")
+            .send(inputBody2)
+            .end((error, response) => {
+                response.should.have.status(400);
+                response.body.should.have.property('success').eq(false);
+                done();
+            });
+    })
 })
+
 describe("GET /", () => {
     it("givenNewInputBody_whenLoggedIn_shouldReturnStatus200WithWelcomeMessage", (done) => {
         chai.request(server)
@@ -51,7 +64,7 @@ beforeEach(done => {
     chai
         .request(server)
         .post("/login/user")
-        .send(addressBookJSON.loginData3)
+        .send(addressBookJSON.validCredentials)
         .end((err, res) => {
             jwToken = res.body.token;
             res.should.have.status(200);
@@ -63,11 +76,11 @@ let invalidToken=jwToken.slice(12);
 let empToken='';
 
 describe("POST /add/addressBook", () => {
-    it("givenNewContactInBody_whenAdded_shouldReturnStatus=201Sucess=true", (done) => {
+    it("givenNewAddressBook_whenAdded_shouldReturnStatus=201Sucess=true", (done) => {
       
         chai.request(server)
             .post("/add/addressBook")
-            .send(addressBookJSON.contact1)
+            .send(addressBookJSON.ValidAddressBookData)
             .set('Authorization', 'Bearar ' + jwToken)
             .end((error, response) => {
                 response.should.have.status(201);
@@ -76,11 +89,11 @@ describe("POST /add/addressBook", () => {
             });
     })
 
-    it("givenDuplicateContactAndEmptyToken_whenAdded_shouldReturnStatus=401Sucess=false", (done) => {
+    it("givenDuplicateAddressBookAndEmptyToken_whenAdded_shouldReturnStatus=401Sucess=false", (done) => {
         
          chai.request(server)
              .post("/add/addressBook")
-             .send(addressBookJSON.contact1)
+             .send(addressBookJSON.ValidAddressBookData)
              .end((error, response) => {
                  response.should.have.status(401);
                  response.body.should.have.property('success').eq(false);
@@ -88,11 +101,11 @@ describe("POST /add/addressBook", () => {
              });
      })
 
-    it("givenDuplicateContactAndInvalidToken_whenAdded_shouldReturnStatus=400Sucess=false", (done) => {
+    it("givenDuplicateAddressBookAndInvalidToken_whenAdded_shouldReturnStatus=401Sucess=false", (done) => {
         
         chai.request(server)
             .post("/add/addressBook")
-            .send(addressBookJSON.contact1)
+            .send(addressBookJSON.ValidAddressBookData)
             .set('Authorization',invalidToken)
             .end((error, response) => {
                 response.should.have.status(401);
@@ -144,7 +157,7 @@ describe("GET /addressBooks/addressbookID", () => {
     it("givenAddressbookIdAndToken_whenRetrieved_shouldReturnStatus=200Sucess=true", (done) => {
       
         chai.request(server)
-            .get("/addressBooks/"+addressBookJSON.contact7.id)
+            .get("/addressBooks/"+addressBookJSON.validAddressDataId)
             .set('Authorization', 'Bearar ' + jwToken)
             .end((error, response) => {
                 response.should.have.status(200);
@@ -156,7 +169,7 @@ describe("GET /addressBooks/addressbookID", () => {
     it("givenAddressbookIdAndInvalidToken_whenRetrieved_shouldReturnStatus=400Sucess=false", (done) => {
       
         chai.request(server)
-            .get("/addressBooks/"+addressBookJSON.contact7.id)
+            .get("/addressBooks/"+addressBookJSON.validAddressDataId)
             .set('Authorization', 'Bearar ' + invalidToken)
             .end((error, response) => {
                 response.should.have.status(400);
@@ -168,7 +181,7 @@ describe("GET /addressBooks/addressbookID", () => {
     it("givenAddressbookIdAndemptyToken_whenRetrieved_shouldReturnStatus=401Sucess=false", (done) => {
       
         chai.request(server)
-            .get("/addressBooks/"+addressBookJSON.contact7.id)
+            .get("/addressBooks/"+addressBookJSON.validAddressDataId)
             .set('Authorization',empToken)
             .end((error, response) => {
                 response.should.have.status(401);
