@@ -157,7 +157,7 @@ describe("GET /addressBooks/addressbookID", () => {
     it("givenAddressbookIdAndToken_whenRetrieved_shouldReturnStatus=200Sucess=true", (done) => {
       
         chai.request(server)
-            .get("/addressBooks/"+addressBookJSON.validAddressDataId)
+            .get("/addressBooks/"+addressBookJSON.validAddressBookId)
             .set('Authorization', 'Bearar ' + jwToken)
             .end((error, response) => {
                 response.should.have.status(200);
@@ -169,7 +169,7 @@ describe("GET /addressBooks/addressbookID", () => {
     it("givenAddressbookIdAndInvalidToken_whenRetrieved_shouldReturnStatus=400Sucess=false", (done) => {
       
         chai.request(server)
-            .get("/addressBooks/"+addressBookJSON.validAddressDataId)
+            .get("/addressBooks/"+addressBookJSON.validAddressBookId)
             .set('Authorization', 'Bearar ' + invalidToken)
             .end((error, response) => {
                 response.should.have.status(400);
@@ -181,7 +181,7 @@ describe("GET /addressBooks/addressbookID", () => {
     it("givenAddressbookIdAndemptyToken_whenRetrieved_shouldReturnStatus=401Sucess=false", (done) => {
       
         chai.request(server)
-            .get("/addressBooks/"+addressBookJSON.validAddressDataId)
+            .get("/addressBooks/"+addressBookJSON.validAddressBookId)
             .set('Authorization',empToken)
             .end((error, response) => {
                 response.should.have.status(401);
