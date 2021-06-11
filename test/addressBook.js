@@ -76,7 +76,7 @@ describe("POST /add/addressBook", () => {
             });
     })
 
-    it("givenDuplicateContactInBody_whenAdded_shouldReturnStatus=500Sucess=false", (done) => {
+    it("givenDuplicateContactAndEmptyToken_whenAdded_shouldReturnStatus=401Sucess=false", (done) => {
         
          chai.request(server)
              .post("/add/addressBook")
@@ -87,4 +87,17 @@ describe("POST /add/addressBook", () => {
                  done();
              });
      })
+
+    it("givenDuplicateContactAndInvalidToken_whenAdded_shouldReturnStatus=400Sucess=false", (done) => {
+        
+        chai.request(server)
+            .post("/add/addressBook")
+            .send(addressBookJSON.contact1)
+            .set('Authorization',invalidToken)
+            .end((error, response) => {
+                response.should.have.status(401);
+                response.body.should.have.property('success').eq(false);
+                done();
+            });
+    })
 })
