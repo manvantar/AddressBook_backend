@@ -22,9 +22,35 @@
         "emailId": "manukvshettygmail.com",
         "password": "!@#EDsaq123"        
     },
-    "validCredentials":{
+    "validLoginCredentials":{
         "emailId": "manukvshetty@gmail.com",
         "password": "!@#EDsaq123" 
     },
-    "validAddressDataId":"60c1f0dc31a6f437e48563d2"
+    "validAddressBookId":"60c1f0dc31a6f437e48563d2",
+    "inValidAddressBookData":{
+        "firstName": "Manu",
+        "lastName": "KV",
+        "phoneNumber": "92334888",
+        "city": "Bengaluru",
+        "state": "Karnataka",
+        "pincode": "560076",
+        "emailId": "manukvshettygmail.com"
+    },
+    "inValidAddressBookId":"60c1f0dc31a6f437e485632",
+    "validLoginCredentials2":{
+        "emailId": "manukvsh132@gmail.com",
+        "password": "!@#EDsaq123" 
+    },
+    "inValidLoginCredentials":{
+        "emailId": "ma@gmail.com",
+        "password": "!@#EDsaq3" 
+    },
+    "inValidLoginCredentials2":{
+        "emailId": "manukvsh132@gmail.com",
+        "password": "!@#EDsaq1" 
+    },
+    "inValidLoginCredentials3":{
+        "emailId": "manukvsh132gmail.com",
+        "password": "!@#EDsaq1" 
+    }
 }
