@@ -46,6 +46,56 @@ describe("POST /add/user", () =>{
     })
 })
 
+describe("POST /login/user", () =>{
+    it("givenLoginCredentials_WhenLoggedIn_shouldReturnStatus=200,Success=true", (done) => {
+        chai.request(server)
+            .post("/login/user")
+            .send(addressBookJSON.validLoginCredentials2)
+            .end((error, response) => {
+                response.should.have.status(200);
+                response.body.should.have.property('success').eq(true);
+                response.body.should.have.property('message').eq("logged in successfully");
+                done();
+            });
+    })
+
+    it("givenInValidLoginCredentials_WhenLoggedIn_shouldReturnStatus=404,message=UserIdDoesn'tExist", (done) => {
+        chai.request(server)
+            .post("/login/user")
+            .send(addressBookJSON.inValidLoginCredentials)
+            .end((error, response) => {
+                response.should.have.status(404);
+                response.body.should.have.property('success').eq(false);
+                response.body.should.have.property('message').eq("UserId doesn't exist");
+                done();
+            });
+    })
+
+    it("givenInValidLoginCredentials_WhenLoggedIn_shouldReturnStatus=404,message=invalidCredentials", (done) => {
+        chai.request(server)
+            .post("/login/user")
+            .send(addressBookJSON.inValidLoginCredentials2)
+            .end((error, response) => {
+                response.should.have.status(404);
+                response.body.should.have.property('success').eq(false);
+                response.body.should.have.property('message').eq("Invalid Credentials");
+                done();
+            });
+    })
+
+    it("givenInValidLoginCredentials_WhenLoggedIn_shouldReturnStatus=400,message=EmailIdMustBeAValidEmail ", (done) => {
+        chai.request(server)
+            .post("/login/user")
+            .send(addressBookJSON.inValidLoginCredentials3)
+            .end((error, response) => {
+                response.should.have.status(400);
+                response.body.should.have.property('success').eq(false);
+                response.body.should.have.property('message').eq('"emailId" must be a valid email');
+                done();
+            });
+    })
+})
+
 describe("GET /", () => {
     it("givenNewInputBody_whenLoggedIn_shouldReturnStatus200WithWelcomeMessage", (done) => {
         chai.request(server)
@@ -64,7 +114,7 @@ beforeEach(done => {
     chai
         .request(server)
         .post("/login/user")
-        .send(addressBookJSON.validCredentials)
+        .send(addressBookJSON.validLoginCredentials2)
         .end((err, res) => {
             jwToken = res.body.token;
             res.should.have.status(200);
@@ -109,6 +159,19 @@ describe("POST /add/addressBook", () => {
             .set('Authorization',invalidToken)
             .end((error, response) => {
                 response.should.have.status(401);
+                response.body.should.have.property('success').eq(false);
+                done();
+            });
+    })
+
+    it("giveninValidAddressBookAndValidToken_whenAdded_shouldReturnStatus=400Sucess=false", (done) => {
+        
+        chai.request(server)
+            .post("/add/addressBook")
+            .send(addressBookJSON.inValidAddressBookData)
+            .set('Authorization',jwToken)
+            .end((error, response) => {
+                response.should.have.status(400);
                 response.body.should.have.property('success').eq(false);
                 done();
             });
@@ -185,6 +248,18 @@ describe("GET /addressBooks/addressbookID", () => {
             .set('Authorization',empToken)
             .end((error, response) => {
                 response.should.have.status(401);
+                response.body.should.have.property('success').eq(false);
+                done();
+            });
+    })
+
+    it("givenInValidAddressbookIdAndToken_whenRetrieved_shouldReturnStatus=404Sucess=false", (done) => {
+      
+        chai.request(server)
+            .get("/addressBooks/"+addressBookJSON.inValidAddressBookId)
+            .set('Authorization',jwToken)
+            .end((error, response) => {
+                response.should.have.status(404);
                 response.body.should.have.property('success').eq(false);
                 done();
             });

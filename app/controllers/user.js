@@ -43,6 +43,7 @@ class UserControll {
         var credentials = req.body;
         var validationResult = validator.joiCredentialsValidator.validate(credentials);
         if (validationResult.error) {
+            logger.error(validationResult.error.details[0].message);
             return res.status(400).send({
                 success: false,
                 message: validationResult.error.details[0].message
