@@ -101,3 +101,41 @@ describe("POST /add/addressBook", () => {
             });
     })
 })
+
+describe("GET /addressBooks", () => {
+    it("givenToken_whenRetrieved_shouldReturnStatus=200Sucess=true", (done) => {
+      
+        chai.request(server)
+            .get("/addressBooks")
+            .set('Authorization', 'Bearar ' + jwToken)
+            .end((error, response) => {
+                response.should.have.status(200);
+                response.body.should.have.property('success').eq(true);
+                done();
+            });
+    })
+
+    it("givenInValidToken_whenRetrieved_shouldReturnStatus=200Sucess=true", (done) => {
+      
+        chai.request(server)
+            .get("/addressBooks")
+            .set('Authorization', 'Bearar ' + invalidToken)
+            .end((error, response) => {
+                response.should.have.status(400);
+                response.body.should.have.property('success').eq(false);
+                done();
+            });
+    })
+
+    it("givenEmptyToken_whenRetrieved_shouldReturnStatus=401Sucess=true", (done) => {
+      
+        chai.request(server)
+            .get("/addressBooks")
+            .set('Authorization', empToken)
+            .end((error, response) => {
+                response.should.have.status(401);
+                response.body.should.have.property('success').eq(false);
+                done();
+            });
+    })
+})
