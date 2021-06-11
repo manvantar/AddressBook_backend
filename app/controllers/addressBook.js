@@ -101,7 +101,6 @@ class Controll {
     delete = (req, res) => {
         let addressBookObjectId = req.params.addressBookId;
         addressBookService.deleteDataUsingId(addressBookObjectId, error => {
-            console.log(error);
             if (error) {
                 if (error.kind === 'ObjectId' || error == "no addressBook") {
                     return res.status(404).send({
