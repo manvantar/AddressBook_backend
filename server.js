@@ -3,6 +3,7 @@ const express = require('express');
 const dbconnect = require('./config/database.js');
 const swaggerUi = require('swagger-ui-express');
 const swaggerDocument = require('./swagger/swagger.json');
+const logger = require('./config/logger.js');
 
 // create express app
 const app = express();
@@ -30,4 +31,4 @@ require('./app/routes/addressBook.js')(app);
 // listen for requests
 const port = process.env.SERVER_PORT;
 module.exports= app.listen(port, () =>
-console.log("Server is listening on port "+port));
+logger.info("Server is listening on port "+port));
