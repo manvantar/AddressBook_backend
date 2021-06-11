@@ -1,11 +1,29 @@
 {
     "contact1":{
         "firstName": "Manu",
-            "lastName": "KV",
-            "phoneNumber": "9663393190",
-            "city": "Bengaluru",
-            "state": "Karnataka",
-            "pincode": "560076",
-            "emailId": "manukvshetty@gmail.com"
+        "lastName": "KV",
+        "phoneNumber": "9233480031",
+        "city": "Bengaluru",
+        "state": "Karnataka",
+        "pincode": "560076",
+        "emailId": "manukvshetty@gmail.com"
+    },
+    "loginData1":
+    {
+        "firstName": "Manu",
+        "lastName": "KV",
+        "emailId": "manukvsh127@gmail.com",
+        "password": "!@#EDsaq123"        
+    },
+    "loginData2":
+    {
+        "firstName": "Manu",
+        "lastName": "KV",
+        "emailId": "manukvshetty@gmail.com",
+        "password": "!@#EDsaq123"        
+    },
+    "loginData3":{
+        "emailId": "manukvshetty@gmail.com",
+        "password": "!@#EDsaq123" 
     }
 }

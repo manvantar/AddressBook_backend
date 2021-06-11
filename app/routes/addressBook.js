@@ -23,6 +23,6 @@ module.exports = (app) => {
     app.post('/add/user', userController.create);
 
     // login a as user
-    app.post('/user/login', userController.login);
+    app.post('/login/user', userController.login);
     
 }
