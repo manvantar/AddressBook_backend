@@ -20,6 +20,7 @@ class Controll {
         }
 
         addressBookService.create(newContactData, (error, resultdata) => {
+            logger.info(resultdata);
             if (error) {
                 return res.status(500).send({
                     success: false,

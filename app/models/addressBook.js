@@ -13,7 +13,8 @@ const AddressBookSchema = mongoose.Schema({
     pincode: { type: Number, required: true, validate: /^[0-9]{6}$/ },
     emailId: { type: String, required: true, validate: /^[a-zA-Z0-9+_.-]+@[a-zA-Z0-9]+[.]+[a-zA-Z]+$/ },
 }, {
-    timestamps: false
+    timestamps: false,
+    versionKey: false
 });
 
 const AddressBook = mongoose.model('AddressBook', AddressBookSchema)
