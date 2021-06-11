@@ -92,6 +92,7 @@ class AddressBookModel {
             pincode: newData.pincode,
             emailId: newData.emailId
         }, { new: true }, (error, data) => {
+            logger.info("model-> ",data);
             return (error) ? callback(error, null) : callback(null, data);
         });
     }

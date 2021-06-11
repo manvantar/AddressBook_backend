@@ -65,6 +65,7 @@ class Controll {
      */
     findOneData = (req, res) => {
         let addressBookObjectId = req.params.addressBookId;
+        logger.info(addressBookObjectId)
         addressBookService.findDataId(addressBookObjectId, (error, addressBookData) => {
             if (error) {
                 logger.error("Contact not found with id " + addressBookObjectId);
@@ -87,7 +88,7 @@ class Controll {
             else {
                 return res.status(404).send({
                     success: false,
-                    message: "Contact not found with id " + req.params.ContactId
+                    message: "Contact not found with id " + addressBookObjectId
                 });
             }
         })
@@ -101,6 +102,7 @@ class Controll {
     delete = (req, res) => {
         let addressBookObjectId = req.params.addressBookId;
         addressBookService.deleteDataUsingId(addressBookObjectId, error => {
+            logger.error(error)
             if (error) {
                 if (error.kind === 'ObjectId' || error == "no addressBook") {
                     return res.status(404).send({

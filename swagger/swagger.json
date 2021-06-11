@@ -70,7 +70,7 @@
         ]
       }
     },
-    "/addressBooks/:addressBookId": {
+    "/addressBooks/{addressBookId}": {
       "get": {
         "tags": [],
         "description": "",
@@ -106,7 +106,7 @@
         ]
       }
     },
-    "/update/addressBook/:addressBookId": {
+    "/update/addressBook/{addressBookId}": {
       "put": {
         "tags": [],
         "description": "",
@@ -150,7 +150,7 @@
         ]
       }
     },
-    "/delete/addressBook/:addressBookId": {
+    "/delete/addressBook/{addressBookId}": {
       "delete": {
         "tags": [],
         "description": "",
