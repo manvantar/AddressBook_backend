@@ -349,8 +349,8 @@ describe("/PUT /update/addressBook/Id", () => {
         chai
             .request(server)
             .put("/update/addressBook/" + addressBookJSON.validAddressBookId3)
-            .set('Authorization', 'Bearar ' + jwToken)
             .send(addressBookJSON.invalidAddressBookData2)
+            .set('Authorization', 'Bearar ' + jwToken)
             .end((err, response) => {
                 response.should.have.status(400);
                 response.body.should.have.property('success').eq(false);
@@ -362,8 +362,8 @@ describe("/PUT /update/addressBook/Id", () => {
         chai
             .request(server)
             .put("/update/addressBook/" + addressBookJSON.validAddressBookId3)
-            .set('Authorization', 'Bearar ' + invalidToken)
             .send(addressBookJSON.invalidAddressBookData2)
+            .set('Authorization', 'Bearar ' + invalidToken)
             .end((err, response) => {
                 response.should.have.status(400);
                 response.body.should.have.property('success').eq(false);
@@ -378,8 +378,8 @@ describe("/PUT /update/addressBook/Id", () => {
         chai
             .request(server)
             .put("/update/addressBook/" + addressBookJSON.validAddressBookId3)
-            .set('Authorization', empToken)
             .send(addressBookJSON.invalidAddressBookData2)
+            .set('Authorization', empToken)
             .end((err, response) => {
                 response.should.have.status(401);
                 response.body.should.have.property('success').eq(false)
