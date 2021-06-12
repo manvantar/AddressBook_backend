@@ -1,4 +1,4 @@
-require("dotenv").config(); 
+require("dotenv").config();
 const express = require('express');
 const dbconnect = require('./config/database.js');
 const swaggerUi = require('swagger-ui-express');
@@ -22,7 +22,7 @@ app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerDocument));
 
 //api for welcome message
 app.get('/', (req, res) => {
-    res.json({"message": "Welcome to AddressBook application Backend"});
+    res.json({ "message": "Welcome to AddressBook application Backend" });
 });
 
 // Require address routes
@@ -30,5 +30,5 @@ require('./app/routes/addressBook.js')(app);
 
 // listen for requests
 const port = process.env.SERVER_PORT;
-module.exports= app.listen(port, () =>
-logger.info("Server is listening on port "+port));
+module.exports = app.listen(port, () =>
+    logger.info("Server is listening on port " + port));

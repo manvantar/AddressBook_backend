@@ -32,7 +32,7 @@ class ContactService {
     */
     findDataId = (contactObjectId, callback) => {
         contactModel.findDataId(contactObjectId, (error, data) => {
-            logger.info("service->",data);
+            logger.info("service->", data);
             return (error) ? callback(error, null) : callback(null, data);
         });
     }
@@ -55,7 +55,7 @@ class ContactService {
     */
     updateByID = (userId, newUserData, callback) => {
         contactModel.updateById(userId, newUserData, (error, data) => {
-            logger.info("services->",data)
+            logger.info("services->", data)
             return (error) ? callback(error, null) : callback(null, data);
         })
     }

@@ -65,20 +65,20 @@ class Controll {
      */
     findOneData = (req, res) => {
         let addressBookObjectId = req.params.addressBookId;
-        logger.info(addressBookObjectId)
+        //logger.info(addressBookObjectId)
         addressBookService.findDataId(addressBookObjectId, (error, addressBookData) => {
             if (error) {
-                logger.error("Contact not found with id " + addressBookObjectId);
+                //logger.error("Contact not found with id " + addressBookObjectId);
                 if (error.kind === 'ObjectId') {
                     return res.status(404).send({
                         success: false,
                         message: "Contact not found with id " + addressBookObjectId
                     });
                 }
-                 return res.status(500).send({
-                        success: false,
-                        message: "Error retrieving Contact with id " + addressBookObjectId
-                    });       
+                return res.status(500).send({
+                    success: false,
+                    message: "Error retrieving Contact with id " + addressBookObjectId
+                });
             }
             if (addressBookData)
                 res.send({
@@ -145,12 +145,12 @@ class Controll {
                         message: "Contact not found with id " + addressBookObjectId
                     });
                 }
-                let str=error;
-                if(error.message.includes("E11000 duplicate key error collection: contact-book.addressbooks index: phoneNumber_1")){
+                let str = error;
+                if (error.message.includes("E11000 duplicate key error collection: contact-book.addressbooks index: phoneNumber_1")) {
                     return res.status(500).send({
                         success: false,
                         message: "Connot updating addressBookID with duplicate Mobile Number"
-                    });    
+                    });
                 }
                 return res.status(500).send({
                     success: false,
@@ -164,6 +164,6 @@ class Controll {
             })
         })
     };
-    
+
 }
 module.exports = new Controll();

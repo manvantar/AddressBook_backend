@@ -13,7 +13,7 @@ const logger = createLogger({
                 level: 'info',
                 filename: 'logger/info.log',
                 format: format.combine(format.timestamp(), format.simple())
-            }),       
+            }),
     ],
 })
 

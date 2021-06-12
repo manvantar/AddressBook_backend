@@ -1,6 +1,6 @@
 const addressBookController = require('../controllers/addressBook.js');
 const userController = require('../controllers/user.js');
-const helper= require('../middleware/helper.js')
+const helper = require('../middleware/helper.js')
 
 module.exports = (app) => {
 
@@ -24,5 +24,5 @@ module.exports = (app) => {
 
     // login a as user
     app.post('/login/user', userController.login);
-    
+
 }

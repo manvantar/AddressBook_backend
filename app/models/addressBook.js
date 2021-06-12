@@ -46,7 +46,7 @@ class AddressBookModel {
      * @param callback is receive data from Services
      * @return callback is used to callback Services with data or error message
      */
-     findAllContacts = (callback) => {
+    findAllContacts = (callback) => {
         AddressBook.find({}, (error, data) => {
             return (error) ? callback(error, null) : callback(null, data);
         });
@@ -92,7 +92,7 @@ class AddressBookModel {
             pincode: newData.pincode,
             emailId: newData.emailId
         }, { new: true }, (error, data) => {
-            logger.info("model-> ",data);
+            logger.info("model-> ", data);
             return (error) ? callback(error, null) : callback(null, data);
         });
     }
