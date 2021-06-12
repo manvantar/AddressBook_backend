@@ -30,7 +30,7 @@ class Helper {
     validateToken = (req, res, next) => {
         let token = req.get("authorization");
         if (token) {
-            if(token.includes("Bearar "))
+            if (token.includes("Bearar "))
                 token = token.slice(7);
             jwt.verify(token, process.env.JWT_KEY, err => {
                 if (err) {
@@ -38,7 +38,7 @@ class Helper {
                         success: false,
                         message: "Invalid Token...or Expired"
                     });
-                } 
+                }
                 else {
                     next();
                 }

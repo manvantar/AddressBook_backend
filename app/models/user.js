@@ -6,7 +6,7 @@ const mongoose = require('mongoose');
 const UserSchema = mongoose.Schema({
     firstName: { type: String, required: true, validate: /^[a-zA-Z ]{3,30}$/ },
     lastName: { type: String, required: true, validate: /^[a-zA-Z ]{1,30}$/ },
-    emailId: { type: String, required: true, unique:true, validate: /^[a-zA-Z0-9+_.-]+@[a-zA-Z0-9]+[.]+[a-zA-Z]+$/ },
+    emailId: { type: String, required: true, unique: true, validate: /^[a-zA-Z0-9+_.-]+@[a-zA-Z0-9]+[.]+[a-zA-Z]+$/ },
     password: { type: String, required: true }
 }, {
     timestamps: false,

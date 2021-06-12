@@ -27,11 +27,11 @@ class UserService {
             if (error) {
                 return callback(error, null);
             }
-            if(helper.checkPassword(credentials.password, data.password)){
-                let token=helper.generateToken(data.emailId,process.env.JWT_TIMER);
-                return (!token) ? callback("Something went wrong while generating JWT", null) : callback(null, token);                            
+            if (helper.checkPassword(credentials.password, data.password)) {
+                let token = helper.generateToken(data.emailId, process.env.JWT_TIMER);
+                return (!token) ? callback("Something went wrong while generating JWT", null) : callback(null, token);
             }
-            return callback("Invalid Credentials", null); 
+            return callback("Invalid Credentials", null);
         });
     }
 

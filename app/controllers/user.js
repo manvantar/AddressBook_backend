@@ -49,7 +49,7 @@ class UserControll {
                 message: validationResult.error.details[0].message
             });
         }
-     
+
         userService.checkLoginDetails(credentials, (error, data) => {
             if (error) {
                 return res.status(404).send({
