@@ -7,11 +7,11 @@ const fs = require('fs');
 let rawdata = fs.readFileSync('test/addressBook.json');
 let addressBookJSON = JSON.parse(rawdata);
 
-describe("POST /add/user", () => {
+describe("POST /registration", () => {
     it("givenNewInputBody_WhenAdded_shouldReturnStatus=201,Success=true", (done) => {
         const inputBody = addressBookJSON.ValidUserData;
         chai.request(server)
-            .post("/add/user")
+            .post("/registration")
             .send(inputBody)
             .end((error, response) => {
                 response.should.have.status(201);
@@ -26,7 +26,7 @@ describe("POST /add/user", () => {
     it("givenDuplicateUser_WhenAdded_shouldReturnStatus=500,Success=false", (done) => {
         const inputBody2 = addressBookJSON.ValidUserData;
         chai.request(server)
-            .post("/add/user")
+            .post("/registration")
             .send(inputBody2)
             .end((error, response) => {
                 response.should.have.status(500);
@@ -40,7 +40,7 @@ describe("POST /add/user", () => {
     it("givenInvalidUserData_WhenAdded_shouldReturnStatus=400,Success=false", (done) => {
         const inputBody2 = addressBookJSON.inValidUserData;
         chai.request(server)
-            .post("/add/user")
+            .post("/registration")
             .send(inputBody2)
             .end((error, response) => {
                 response.should.have.status(400);
@@ -52,10 +52,10 @@ describe("POST /add/user", () => {
     })
 })
 
-describe("POST /login/user", () => {
+describe("POST /login", () => {
     it("givenLoginCredentials_WhenLoggedIn_shouldReturnStatus=200,Success=true", (done) => {
         chai.request(server)
-            .post("/login/user")
+            .post("/login")
             .send(addressBookJSON.validLoginCredentials2)
             .end((error, response) => {
                 response.should.have.status(200);
@@ -69,7 +69,7 @@ describe("POST /login/user", () => {
 
     it("givenInValidLoginCredentials_WhenLoggedIn_shouldReturnStatus=404,message=UserIdDoesn'tExist", (done) => {
         chai.request(server)
-            .post("/login/user")
+            .post("/login")
             .send(addressBookJSON.inValidLoginCredentials)
             .end((error, response) => {
                 response.should.have.status(404);
@@ -83,7 +83,7 @@ describe("POST /login/user", () => {
 
     it("givenInValidLoginCredentials_WhenLoggedIn_shouldReturnStatus=404,message=invalidCredentials", (done) => {
         chai.request(server)
-            .post("/login/user")
+            .post("/login")
             .send(addressBookJSON.inValidLoginCredentials2)
             .end((error, response) => {
                 response.should.have.status(404);
@@ -97,7 +97,7 @@ describe("POST /login/user", () => {
 
     it("givenInValidLoginCredentials_WhenLoggedIn_shouldReturnStatus=400,message=EmailIdMustBeAValidEmail ", (done) => {
         chai.request(server)
-            .post("/login/user")
+            .post("/login")
             .send(addressBookJSON.inValidLoginCredentials3)
             .end((error, response) => {
                 response.should.have.status(400);
@@ -129,7 +129,7 @@ let jwToken = '';
 beforeEach(done => {
     chai
         .request(server)
-        .post("/login/user")
+        .post("/login")
         .send(addressBookJSON.validLoginCredentials2)
         .end((error, res) => {
             jwToken = res.body.token;
