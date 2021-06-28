@@ -186,7 +186,7 @@
         ]
       }
     },
-    "/add/user": {
+    "/registration": {
         "post": {
           "description": "",
           "parameters": [
@@ -212,7 +212,7 @@
           }
         }
       },
-      "/login/user": {
+      "/login": {
         "post": {
           "description": "",
           "parameters": [

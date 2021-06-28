@@ -20,9 +20,9 @@ module.exports = (app) => {
     app.put('/update/addressBook/:addressBookId', helper.validateToken, addressBookController.update);
 
     // Create a new user
-    app.post('/add/user', userController.create);
+    app.post('/registration', userController.create);
 
     // login a as user
-    app.post('/login/user', userController.login);
+    app.post('/login', userController.login);
 
 }
