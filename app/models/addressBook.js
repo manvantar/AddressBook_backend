@@ -82,13 +82,13 @@ class AddressBookModel {
    * @param objectId, callback is data sent from Services
    * @return callback is used to callback Services with data or error message
    */
-  findDataId = (addressBookObjectId, callback) => {
+   findDataId = async(addressBookObjectId)=>{
     try {
-      AddressBook.findById(addressBookObjectId, (error, data) => {
-        return error ? callback(error, null) : callback(null, data);
-      });
-    } catch (err) {
-      callback(err, null);
+        let contact= await AddressBook.findById(addressBookObjectId);
+        // console.log(contact);
+        return contact;
+      }catch (error) {
+        return error;
     }
   };
 

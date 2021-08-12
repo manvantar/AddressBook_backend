@@ -64,6 +64,11 @@ class Controll {
               message: "Retrived all the addressBook data successfully",
               Contacts: data,
             });
+          } else {
+            res.status(500).send({
+              success: false,
+              message: "Some error occurred!",
+            });
           }
         })
         .catch((error) => {
@@ -85,44 +90,37 @@ class Controll {
    * @param req is request sent from http
    * @param res is used to send the Response
    */
-  findOneData = (req, res) => {
+  findOneData = async (req, res) => {
+    let addressBookObjectId = req.params.addressBookId;
     try {
-      let addressBookObjectId = req.params.addressBookId;
       //logger.info(addressBookObjectId)
-      addressBookService.findDataId(
-        addressBookObjectId,
-        (error, addressBookData) => {
-          if (error) {
-            //logger.error("Contact not found with id " + addressBookObjectId);
-            if (error.kind === "ObjectId") {
-              return res.status(404).send({
-                success: false,
-                message: "Contact not found with id " + addressBookObjectId,
-              });
-            }
-            return res.status(500).send({
-              success: false,
-              message:
-                "Error retrieving Contact with id " + addressBookObjectId,
-            });
-          }
-          if (addressBookData)
-            res.send({
-              success: true,
-              foundData: addressBookData,
-            });
-          else {
-            return res.status(404).send({
-              success: false,
-              message: "Contact not found with id " + addressBookObjectId,
-            });
-          }
-        }
-      );
-    } catch (err) {
-      res.status(500).send({
+      let contact = await addressBookService.findDataId(addressBookObjectId);
+
+      if (!contact) {
+        return res.status(404).send({
+          success: false,
+          message: "Contact not found with id " + addressBookObjectId,
+        });
+      } else if (contact.kind === "ObjectId") {
+        return res.status(404).send({
+          success: false,
+          message: "Contact not found with id " + addressBookObjectId,
+        });
+      } else if (data) {
+        return res.send({
+          success: true,
+          foundData: contact,
+        });
+      } else {
+        return res.status(500).send({
+          success: false,
+          message: error.message || "Some error occurred!",
+        });
+      }
+    } catch (error) {
+      return res.status(500).send({
         success: false,
-        message: err.message || "Some error occurred!",
+        message: error.message || "Some error occurred!",
       });
     }
   };

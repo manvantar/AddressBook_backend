@@ -48,16 +48,14 @@ class ContactService {
    * @param objectId and callback is data sent from Controller
    * @return callback is used to callback Controller with data or error message
    */
-  findDataId = (contactObjectId, callback) => {
-    try {
-      contactModel.findDataId(contactObjectId, (error, data) => {
-        logger.info("service->", data);
-        return error ? callback(error, null) : callback(null, data);
-      });
-    } catch (err) {
-      callback(err || "Some error occurred!", null);
-    }
-  };
+    findDataId = async(contactObjectId) => {
+      try {
+        let data= await contactModel.findDataId(contactObjectId);
+        return data;
+      } catch (error) {
+       return error;
+      }
+    };
 
   /**
    * @description delete Contact Data
