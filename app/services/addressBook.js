@@ -28,13 +28,18 @@ class ContactService {
    * @param callback is data sent from Controller
    * @return callback is used to callback Controller with data or error message
    */
-  findAllContacts = (callback) => {
+  findAllContacts = () => {
     try {
-      contactModel.findAllContacts((error, data) => {
-        return error ? callback(error, null) : callback(null, data);
-      });
+      return contactModel
+        .findAllContacts()
+        .then((data) => {
+          return data ? data : null;
+        })
+        .catch((error) => {
+          return error;
+        });
     } catch (err) {
-      callback(err || "Some error occurred!", null);
+      return err;
     }
   };
 

@@ -65,13 +65,15 @@ class AddressBookModel {
    * @param callback is receive data from Services
    * @return callback is used to callback Services with data or error message
    */
-  findAllContacts = (callback) => {
+  findAllContacts = () => {
     try {
-      AddressBook.find({}, (error, data) => {
-        return error ? callback(error, null) : callback(null, data);
-      });
+      return AddressBook.find().then((data) => {
+        return data ? data: null;
+      }).catch(error=>{
+        return error;
+      })
     } catch (err) {
-      callback(err, null);
+      return err;
     }
   };
 

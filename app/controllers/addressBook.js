@@ -49,19 +49,29 @@ class Controll {
    */
   findAllContacts = (req, res) => {
     try {
-      addressBookService.findAllContacts((error, Contacts) => {
-        if (error) {
-          return res.status(500).send({
+      addressBookService
+        .findAllContacts()
+        .then((data) => {
+          if (data === null) {
+            res.send({
+              success: true,
+              message: "addressBook is empty",
+            });
+          }
+          if (data) {
+            res.send({
+              success: true,
+              message: "Retrived all the addressBook data successfully",
+              Contacts: data,
+            });
+          }
+        })
+        .catch((error) => {
+          res.status(500).send({
             success: false,
-            message: "Some error occured while fetching Data",
+            message: "Some error occurred!",
           });
-        }
-        res.send({
-          success: true,
-          message: "Retrived all the addressBook data successfully",
-          Contacts: Contacts,
         });
-      });
     } catch (err) {
       res.status(500).send({
         success: false,
