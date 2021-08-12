@@ -1,20 +1,18 @@
-const { createLogger, transports, format } = require('winston');
+const { createLogger, transports, format } = require("winston");
 
 const logger = createLogger({
-    transports: [
-        new transports.File(
-            {
-                level: 'error',
-                filename: 'logger/error.log',
-                format: format.combine(format.timestamp(), format.simple())
-            }),
-        new transports.File(
-            {
-                level: 'info',
-                filename: 'logger/info.log',
-                format: format.combine(format.timestamp(), format.simple())
-            }),
-    ],
-})
+  transports: [
+    new transports.File({   
+      format: format.combine(format.timestamp(), format.simple()),
+      level: "info",
+      filename: "logger/info.log",
+    }),
+    new transports.File({
+      format: format.combine(format.timestamp(), format.simple()),
+      level: "error",
+      filename: "logger/error.log",
+    }),
+  ],
+});
 
 module.exports = logger;

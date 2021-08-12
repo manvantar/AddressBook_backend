@@ -10,7 +10,13 @@ class ContactService {
     */
     create = (newData, callback) => {
         contactModel.create(newData, (error, data) => {
-            return (error) ? callback(error, null) : callback(null, data);
+            if(error){
+                logger.error("addressBook Create service ->",error);
+                return callback(error, null);  
+            }
+                logger.info("addressBook Create service ->",data);
+                return callback(null, data);
+            // return (error) ? callback(error, null) : callback(null, data);
         })
     }
 
