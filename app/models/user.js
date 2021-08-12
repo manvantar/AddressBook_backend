@@ -30,19 +30,15 @@ class UserModel {
    * @return callback is used to callback Services includes error message or data
    */
   create = (userdata, callback) => {
-    try {
-      const user = new User({
-        firstName: userdata.firstName,
-        lastName: userdata.lastName,
-        emailId: userdata.emailId,
-        password: userdata.password,
-      });
-      user.save({}, (error, data) => {
-        return error ? callback(error, null) : callback(null, data);
-      });
-    } catch (err) {
-      callback(err, null);
-    }
+    const user = new User({
+      firstName: userdata.firstName,
+      lastName: userdata.lastName,
+      emailId: userdata.emailId,
+      password: userdata.password,
+    });
+    user.save({}, (error, data) => {
+      return error ? callback(error, null) : callback(null, data);
+    });
   };
 
   /**
@@ -51,18 +47,14 @@ class UserModel {
    * @return callback is used to callback Services with data or error message
    */
   checkLoginDetails = (credentials, callback) => {
-    try {
-      User.findOne({ emailId: credentials.emailId }, (error, data) => {
-        if (error) {
-          return callback(error, null);
-        }
-        return !data
-          ? callback("UserId doesn't exist", null)
-          : callback(null, data);
-      });
-    } catch (err) {
-      callback(err, null);
-    }
+    User.findOne({ emailId: credentials.emailId }, (error, data) => {
+      if (error) {
+        return callback(error, null);
+      }
+      return !data
+        ? callback("UserId doesn't exist", null)
+        : callback(null, data);
+    });
   };
 }
 
